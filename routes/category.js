@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 
-
 //Require dos Models
 require('../models/Categorias')
 const Categoria = mongoose.model('categorias')
@@ -42,6 +41,16 @@ router.post('/add', (req, res) => {
             res.json(err)
         })
     }
+})
+
+router.get('/edit/:id', (req, res) => {
+    Categoria.find({_id: req.params.id}).then( result => {
+        res.status(200)
+        res.json(result)
+    }).catch( (err) => {
+        res.status(500)
+        res.json(err)
+    })
 })
 
 module.exports = router
